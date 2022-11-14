@@ -73,11 +73,29 @@ jobs:
           keys:
             - "npm-packages"
       - run: 
-          name: Scan Frontend
+          name: Analyze Frontend
           command: |
             cd frontend
             npm install
-            npm audit
+            # npm install oauth-sign@^0.9.0
+            npm audit --audit-level=critical
+
+
+  scan-backend:
+    <<: *dockerdefault
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - "npm-packages"
+      - run: 
+          name: Analyze Backend
+          command: |
+            cd frontend
+            npm install
+            # npm install oauth-sign@^0.9.0
+            npm audit --audit-level=critical
+
 
 workflows:
   default:
