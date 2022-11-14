@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  slack: circleci/slack@4.10.1
+
 defaults: &dockerdefault
   docker:
     - image: circleci/node:13.8.0
@@ -20,6 +23,7 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
+
 
   build-backend:
     <<: *dockerdefault
@@ -76,12 +80,15 @@ jobs:
           name: Analyze Frontend
           command: |
             cd frontend
-            # npm install
-            npm install --save-dev webpack-cli@4.10.0
-            npm install oauth-sign@^0.9.0
+            npm install
+            # npm install --save-dev webpack-cli@4.10.0
+            # npm install oauth-sign@^0.9.0
             npm audit fix --audit-level=critical --force
             npm audit --audit-level=critical
-
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
+          channel: $SLACK_DEFAULT_CHANNEL
 
   scan-backend:
     <<: *dockerdefault
@@ -94,12 +101,15 @@ jobs:
           name: Analyze Backend
           command: |
             cd frontend
-            # npm install
-            npm install --save-dev webpack-cli@4.10.0
-            npm install oauth-sign@^0.9.0
+            npm install
+            # npm install --save-dev webpack-cli@4.10.0
+            # npm install oauth-sign@^0.9.0
             npm audit fix --audit-level=critical --force
             npm audit --audit-level=critical
-
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
+          channel: $SLACK_DEFAULT_CHANNEL
 
 workflows:
   default:
@@ -112,5 +122,7 @@ workflows:
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
+          context: $SLACK_ACCESS_TOKEN
       - scan-backend:
           requires: [build-backend]
+          context: $SLACK_ACCESS_TOKEN
