@@ -12,7 +12,7 @@ commands:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
       workflow_id:
-        default: "${CIRCLE_WORKFLOW_ID}"
+        default: "${CIRCLE_WORKFLOW_ID:0:7}"
         type: string
     steps:
       - run:
@@ -132,10 +132,10 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - run:
+      - run: 
           name: test
           command: |
-            echo ${CIRCLE_WORKFLOW_ID:0:7}
+            aws s3 ls
       # - run:
       #     name: Install tar and gzip
       #     command: |
@@ -146,16 +146,16 @@ jobs:
       #       aws cloudformation deploy \
       #         --template-file .circleci/files/backend.yml \
       #         --tags project=udapeople \
-      #         --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID} \
-      #         --parameter-overrides ID=${CIRCLE_WORKFLOW_ID} 
+      #         --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
+      #         --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7} 
       # - run:
       #     name: Ensure front-end infrastructure exist
       #     command: |
       #       aws cloudformation deploy \
       #         --template-file .circleci/files/frontend.yml \
       #         --tags project=udapeople \
-      #         --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID} \
-      #         --parameter-overrides ID=${CIRCLE_WORKFLOW_ID}
+      #         --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
+      #         --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}
       # - run:
       #     name: Add back-end ip to ansible inventory
       #     command: |
