@@ -22,28 +22,28 @@
     #   become_method: sudo
     #   raw: apt install python3 -y
 
-    # - name: "Update Packages"
-    #   become: true
-    #   become_method: sudo
-    #   raw: apt update -y
+    - name: "Update Packages"
+      become: true
+      become_method: sudo
+      raw: apt update -y
 
-    # - name: "Install Dependencies"
-    #   become: true
-    #   become_method: sudo
-    #   apt: 
-    #     name: ["nodejs", "npm"]
-    #     state: latest
-    #     update_cache: yes
+    - name: "Install Dependencies"
+      become: true
+      become_method: sudo
+      apt: 
+        name: ["nodejs", "npm"]
+        state: latest
+        update_cache: yes
 
-    # - name: "Install pm2"
-    #   become: yes
-    #   npm:
-    #     name: pm2
-    #     global: yes
-    #     production: yes
-    #     state: present
+    - name: "Install pm2"
+      become: yes
+      npm:
+        name: pm2
+        global: yes
+        production: yes
+        state: present
 
-  Get the environment variables from CircleCI and add to the EC2 instance
+  # Get the environment variables from CircleCI and add to the EC2 instance
   environment:
     - TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"
     - TYPEORM_ENTITIES: "{{ lookup('env', 'TYPEORM_ENTITIES')}}"
@@ -55,6 +55,6 @@
     - TYPEORM_MIGRATIONS: "{{ lookup('env', 'TYPEORM_MIGRATIONS')}}"
     - TYPEORM_MIGRATIONS_DIR: "{{ lookup('env', 'TYPEORM_MIGRATIONS_DIR')}}"
 
-  # roles:
-  #   - configure-server
-  #   - configure-prometheus-node-exporter
+  roles:
+    - configure-server
+    - configure-prometheus-node-exporter
