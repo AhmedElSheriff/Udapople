@@ -178,7 +178,8 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt update
-            sudo apt install tar gzip aws-cli -y
+            sudo apt install tar gzip awscli -y
+            ansible --version
       - run:
           name: Configure server
           command: |
