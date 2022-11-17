@@ -178,14 +178,14 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt update
-            sudo apt install tar gzip -y
+            sudo apt install tar gzip aws-cli -y
       - run:
           name: Configure server
           command: |
             # Your code here
             exit 1
-      - destroy-environment:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}   
+      # - destroy-environment:
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}   
 
 workflows:
   default:
