@@ -40,6 +40,14 @@ commands:
               npm run migrations:revert
             fi
 
+  install-awscli-ubuntu:
+    description: Install AWS CLI
+    steps:
+      - run:
+          name: Install
+          commands: |
+            sudo apt install awscli -y
+
 jobs:
   build-frontend:
     <<: *dockerdefault
@@ -207,6 +215,7 @@ jobs:
 
   run-migrations:
     <<: *dockerdefault
+    - install-awscli-ubuntu
     steps:
       - checkout
       - run:
@@ -214,9 +223,10 @@ jobs:
           command: |
             cd backend
             npm install
+            npm audit fix --audit-level=critical --force
             npm run migrations > migrations_dump.txt
       - run:
-          name: Send migration results to memstash
+          name: Send migration results to KVDB
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
