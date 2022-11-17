@@ -178,7 +178,7 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt update
-            sudo install tar gzip -y
+            sudo apt install tar gzip -y
       - run:
           name: Configure server
           command: |
@@ -190,19 +190,19 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
-      - build-backend
-      - test-frontend:
-          requires: [build-frontend]
-      - test-backend:
-          requires: [build-backend]
-      - scan-frontend:
-          requires: [build-frontend]
-          context: $SLACK_ACCESS_TOKEN
-      - scan-backend:
-          requires: [build-backend]
-          context: $SLACK_ACCESS_TOKEN
-      - deploy-infrastructure:
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
+      # - build-frontend
+      # - build-backend
+      # - test-frontend:
+      #     requires: [build-frontend]
+      # - test-backend:
+      #     requires: [build-backend]
+      # - scan-frontend:
+      #     requires: [build-frontend]
+      #     context: $SLACK_ACCESS_TOKEN
+      # - scan-backend:
+      #     requires: [build-backend]
+      #     context: $SLACK_ACCESS_TOKEN
+      # - deploy-infrastructure:
+      #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+      - configure-infrastructure
+          # requires: [deploy-infrastructure]
