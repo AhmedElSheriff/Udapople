@@ -165,6 +165,28 @@ jobs:
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}   
 
+  configure-infrastructure:
+    docker:
+      - image: cytopia/ansible:latest-aws
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["96:11:51:04:b3:34:25:1a:09:60:14:8b:a3:c2:66:6d"]
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt update
+            sudo install tar gzip -y
+      - run:
+          name: Configure server
+          command: |
+            # Your code here
+            exit 1
+      - destroy-environment:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}   
+          
 workflows:
   default:
     jobs:
