@@ -45,7 +45,7 @@ commands:
     steps:
       - run:
           name: Install
-          commands: |
+          command: |
             sudo apt install awscli -y
 
 jobs:
