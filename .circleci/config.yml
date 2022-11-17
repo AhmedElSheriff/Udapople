@@ -215,9 +215,9 @@ jobs:
 
   run-migrations:
     <<: *dockerdefault
-    - install-awscli-ubuntu
     steps:
       - checkout
+      - install-awscli-ubuntu
       - run:
           name: Run migrations
           command: |
