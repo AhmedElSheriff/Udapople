@@ -33,7 +33,7 @@ commands:
           name: Revert migrations
           # when: on_fail
           command: |
-            status = $(curl --insecure  https://kvdb.io/9BC8DLg9e7EDgBNHMrp5Rt/migration_<< parameters.workflow_id >>)
+            SUCCESS="1"
             if(( ${SUCCESS}==1 )); 
             then
               cd ~/project/backend
