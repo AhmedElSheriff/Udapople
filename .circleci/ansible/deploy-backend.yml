@@ -25,31 +25,31 @@
     - TYPEORM_MIGRATIONS: "{{ lookup('env', 'TYPEORM_MIGRATIONS')}}"
     - TYPEORM_MIGRATIONS_DIR: "{{ lookup('env', 'TYPEORM_MIGRATIONS_DIR')}}"
     
-  # pre_tasks:
-  #   - name: "wait 600 seconds for target connection to become reachable/usable."
-  #     wait_for_connection:
-  #       timeout: 600
+  pre_tasks:
+    - name: "wait 600 seconds for target connection to become reachable/usable."
+      wait_for_connection:
+        timeout: 600
 
-    # - name: "Update Packages"
-    #   become: true
-    #   become_method: sudo
-    #   raw: apt update -y
+    - name: "Update Packages"
+      become: true
+      become_method: sudo
+      raw: apt update -y
 
-    # - name: "Install Dependencies"
-    #   become: true
-    #   become_method: sudo
-    #   apt: 
-    #     name: ["nodejs", "npm", "ansible"]
-    #     state: latest
-    #     update_cache: yes
+    - name: "Install Dependencies"
+      become: true
+      become_method: sudo
+      apt: 
+        name: ["nodejs", "npm", "ansible"]
+        state: latest
+        update_cache: yes
 
-    # - name: "Install pm2"
-    #   become: yes
-    #   npm:
-    #     name: pm2
-    #     global: yes
-    #     production: yes
-    #     state: present
+    - name: "Install pm2"
+      become: yes
+      npm:
+        name: pm2
+        global: yes
+        production: yes
+        state: present
 
   roles:
     - deploy
