@@ -1,26 +1,20 @@
-- name: "install node exporter."
-  unarchive:
-    src: https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz
-    dest: /tmp
-    remote_src: yes
-    
-# - name: "Create backend app directory"
-#   files:
-#     path: ~/backend-app
-#     state: directory
+- name: "Create backend app directory"
+  file:
+    path: ~/backend-app
+    state: directory
 
-# - name: "Unarchive backend files"
-#   unarchive: 
-#     src: artifact.tar.gz
-#     dest: ~/backend-app
+- name: "Unarchive backend files"
+  unarchive: 
+    src: artifact.tar.gz
+    dest: ~/backend-app
 
-# - name: "Install Node Dependencies"
-#   shell: |
-#     cd ~/backend-app
-#     npm install
+- name: "Install Node Dependencies"
+  shell: |
+    cd ~/backend-app
+    npm install
 
-# - name: "Run Backend with PM2"
-#   shell: |
-#     cd ~/backend-app/dist
-#     pm2 stop default
-#     pm2 start npm -- start
+- name: "Run Backend with PM2"
+  shell: |
+    cd ~/backend-app/dist
+    pm2 stop default
+    pm2 start npm -- start
