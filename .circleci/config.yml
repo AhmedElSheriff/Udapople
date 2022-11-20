@@ -369,7 +369,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apt install curl -y
+            sudo apt install curl -y
       - run:
           name: Get backend url
           command: |
