@@ -1,9 +1,13 @@
 - name: "Create backend app directory"
+  become: true
+  become_method: sudo
   file:
     path: ~/backend-app
     state: directory
 
 - name: "Unarchive backend files"
+  become: true
+  become_method: sudo
   unarchive: 
     src: artifact.tar.gz
     dest: ~/backend-app
@@ -14,6 +18,8 @@
     npm install
 
 - name: "Run Backend with PM2"
+  become: true
+  become_method: sudo
   shell: |
     cd ~/backend-app/dist
     pm2 stop default
