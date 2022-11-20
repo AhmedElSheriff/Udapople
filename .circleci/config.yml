@@ -180,14 +180,14 @@ jobs:
               --tags project=udapeople \
               --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7} 
-      - run:
-          name: Ensure front-end infrastructure exist
-          command: |
-            aws cloudformation deploy \
-              --template-file .circleci/files/frontend.yml \
-              --tags project=udapeople \
-              --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
-              --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}
+      # - run:
+      #     name: Ensure front-end infrastructure exist
+      #     command: |
+      #       aws cloudformation deploy \
+      #         --template-file .circleci/files/frontend.yml \
+      #         --tags project=udapeople \
+      #         --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
+      #         --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Add back-end ip to ansible inventory
           command: |
@@ -334,7 +334,7 @@ jobs:
             ls
             echo "Main Folder from Ansible Folder"
             ls ../../
-            cp ../../artifact.tar.gz /roles/deploy/files
+            cp ../../artifact.tar.gz roles/deploy/files
             echo "Artifcat Copied"
             ls /roles/deploy/files
             echo "Contents  of the inventory.txt file is -------"
