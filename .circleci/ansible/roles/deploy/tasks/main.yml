@@ -1,21 +1,16 @@
-- name: "List Home directory files and folders"
+- name: "Create backend app directory"
   become: true
   become_method: sudo
-  shell: |
-    ls ~
-# - name: "Create backend app directory"
-#   become: true
-#   become_method: sudo
-#   file:
-#     path: ~/backend-app
-#     state: directory
+  file:
+    path: ~/backend-app
+    state: directory
 
-# - name: "Unarchive backend files"
-#   become: true
-#   become_method: sudo
-#   unarchive: 
-#     src: artifact.tar.gz
-#     dest: ~/backend-app
+- name: "Unarchive backend files"
+  become: true
+  become_method: sudo
+  unarchive: 
+    src: ~/artifact.tar.gz
+    dest: ~/backend-app
 
 # - name: "Install Node Dependencies"
 #   shell: |
