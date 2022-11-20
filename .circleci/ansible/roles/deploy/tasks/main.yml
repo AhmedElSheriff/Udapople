@@ -1,26 +1,31 @@
-- name: "Create backend app directory"
-  become: true
-  become_method: sudo
-  file:
-    path: ~/backend-app
-    state: directory
-
-- name: "Unarchive backend files"
-  become: true
-  become_method: sudo
-  unarchive: 
-    src: artifact.tar.gz
-    dest: ~/backend-app
-
-- name: "Install Node Dependencies"
-  shell: |
-    cd ~/backend-app
-    npm install
-
-- name: "Run Backend with PM2"
+- name: "List Home directory files and folders"
   become: true
   become_method: sudo
   shell: |
-    cd ~/backend-app/dist
-    pm2 stop default
-    pm2 start npm -- start
+    ls ~
+# - name: "Create backend app directory"
+#   become: true
+#   become_method: sudo
+#   file:
+#     path: ~/backend-app
+#     state: directory
+
+# - name: "Unarchive backend files"
+#   become: true
+#   become_method: sudo
+#   unarchive: 
+#     src: artifact.tar.gz
+#     dest: ~/backend-app
+
+# - name: "Install Node Dependencies"
+#   shell: |
+#     cd ~/backend-app
+#     npm install
+
+# - name: "Run Backend with PM2"
+#   become: true
+#   become_method: sudo
+#   shell: |
+#     cd ~/backend-app/dist
+#     pm2 stop default
+#     pm2 start npm -- start
