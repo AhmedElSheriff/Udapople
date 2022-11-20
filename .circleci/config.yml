@@ -331,6 +331,7 @@ jobs:
             sudo cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
             echo "LIST DEPLOY FILES:"
             sudo ls .circleci/ansible/roles/deploy/files
+            exit 1
       # - run:
       #     name: Deploy backend
       #     command: |
