@@ -334,9 +334,9 @@ jobs:
             ls
             echo "Main Folder from Ansible Folder"
             ls ../../
-            cp ../../artifact.tar.gz roles/deploy/files
+            cp ../../artifact.tar.gz /roles/deploy/files
             echo "Artifcat Copied"
-            ls roles/deploy/files
+            ls /roles/deploy/files
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
 
@@ -406,25 +406,25 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
-      - build-backend
-      - test-frontend:
-          requires: [build-frontend]
-      - test-backend:
-          requires: [build-backend]
-      - scan-frontend:
-          requires: [build-frontend]
-          context: $SLACK_ACCESS_TOKEN
-      - scan-backend:
-          requires: [build-backend]
-          context: $SLACK_ACCESS_TOKEN
-      - deploy-infrastructure:
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
-      - deploy-frontend:
-          requires: [run-migrations]
-      - deploy-backend:
-          requires: ["deploy-frontend"]
+      # - build-frontend
+      # - build-backend
+      # - test-frontend:
+      #     requires: [build-frontend]
+      # - test-backend:
+      #     requires: [build-backend]
+      # - scan-frontend:
+      #     requires: [build-frontend]
+      #     context: $SLACK_ACCESS_TOKEN
+      # - scan-backend:
+      #     requires: [build-backend]
+      #     context: $SLACK_ACCESS_TOKEN
+      - deploy-infrastructure
+          # requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+      # - configure-infrastructure:
+      #     requires: [deploy-infrastructure]
+      # - run-migrations:
+      #     requires: [configure-infrastructure]
+      # - deploy-frontend:
+      #     requires: [run-migrations]
+      - deploy-backend
+          # requires: ["deploy-frontend"]
