@@ -321,26 +321,38 @@ jobs:
             cd backend
             npm install
       - run:
-          name: Deploy backend
+          name: Prepare "npm-packages"
           command: |
             cd backend
             npm run build
+            tar -czf artifact.tar.gz dist/* package*
+            echo "Backend Directory"
+            ls
             cd ..
-            tar -C backend -czvf artifact.tar.gz .
-            echo "Artificat Created"
-            ls
-            cd .circleci/ansible
-            echo "Ansible Folder"
-            ls
-            echo "Main Folder from Ansible Folder"
-            ls ../../
-            cp ../../artifact.tar.gz roles/deploy/files
-            echo "Artifcat Copied"
-            ls roles/deploy/files
-            echo "Contents  of the inventory.txt file is -------"
-            cat inventory.txt
+            cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
+            echo "Files Directory"
+            ls .circleci/ansible/roles/deploy/files
+      # - run:
+      #     name: Deploy backend
+      #     command: |
+      #       cd backend
+      #       npm run build
+      #       cd ..
+      #       tar -C backend -czvf artifact.tar.gz .
+      #       echo "Artificat Created"
+      #       ls
+      #       cd .circleci/ansible
+      #       echo "Ansible Folder"
+      #       ls
+      #       echo "Main Folder from Ansible Folder"
+      #       ls ../../
+      #       cp ../../artifact.tar.gz roles/deploy/files
+      #       echo "Artifcat Copied"
+      #       ls roles/deploy/files
+      #       echo "Contents  of the inventory.txt file is -------"
+      #       cat inventory.txt
 
-            ansible-playbook -i inventory.txt deploy-backend.yml
+      #       ansible-playbook -i inventory.txt deploy-backend.yml
 
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}   
