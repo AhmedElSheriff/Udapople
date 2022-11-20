@@ -2,15 +2,15 @@
   become: true
   become_method: sudo
   file:
-    path: ~/backend-app
+    path: /home/ubuntu/backend-app
     state: directory
 
 - name: "Unarchive backend files"
   become: true
   become_method: sudo
   unarchive: 
-    src: ~/artifact.tar.gz
-    dest: ~/backend-app
+    src: /home/ubuntu/artifact.tar.gz
+    dest: /home/ubuntu/backend-app
 
 # - name: "Install Node Dependencies"
 #   shell: |
