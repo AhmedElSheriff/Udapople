@@ -328,14 +328,12 @@ jobs:
             cd ..
             tar -C backend -czvf artifact.tar.gz .
             echo "Artificat Created"
-            ls
-            cp artifact.tar.gz .circleci/ansible/roles/deploy/files
-            echo "Artifcat Copied"
-            ls .circleci/ansible/roles/deploy/files
             cd .circleci/ansible
+            cp ../../artifact.tar.gz roles/deploy/files
+            echo "Artifcat Copied"
+            ls roles/deploy/files
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
-            ls roles/deploy/files
 
             ansible-playbook -i inventory.txt deploy-backend.yml
 
