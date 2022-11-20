@@ -1,5 +1,7 @@
+---
+
 - name: "configuration play." 
-  hosts: all
+  hosts: web
   user: ubuntu
   become: true
   become_method: sudo
@@ -11,8 +13,8 @@
     - ansible_stdout_callback: yaml
 
   environment:
-    - NODE_ENV: production
-    - VERSION: "1"
+    - ENVIRONMENT: production
+    - VERSION: 1
     - TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"
     - TYPEORM_ENTITIES: "{{ lookup('env', 'TYPEORM_ENTITIES')}}"
     - TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST')}}"
@@ -22,8 +24,33 @@
     - TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE')}}"
     - TYPEORM_MIGRATIONS: "{{ lookup('env', 'TYPEORM_MIGRATIONS')}}"
     - TYPEORM_MIGRATIONS_DIR: "{{ lookup('env', 'TYPEORM_MIGRATIONS_DIR')}}"
-    - PORT: "{{ lookup('env', 'PORT')}}"
+    
+  pre_tasks:
 
-  
+    # - name: "wait 600 seconds for target connection to become reachable/usable."
+    #   wait_for_connection:
+    #     timeout: 600
+
+    - name: "Update Packages"
+      become: true
+      become_method: sudo
+      raw: apt update -y
+
+    - name: "Install Dependencies"
+      become: true
+      become_method: sudo
+      apt: 
+        name: ["nodejs", "npm", "ansible"]
+        state: latest
+        update_cache: yes
+
+    - name: "Install pm2"
+      become: yes
+      npm:
+        name: pm2
+        global: yes
+        production: yes
+        state: present
+
   roles:
     - deploy
