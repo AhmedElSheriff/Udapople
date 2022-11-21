@@ -365,12 +365,10 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - install_nodejs
-      - install-awscli-ubuntu
       - run:
           name: Install dependencies
           command: |
-            sudo apt install curl -y
+            yum -y install curl
       - run:
           name: Backend smoke test.
           command: |
