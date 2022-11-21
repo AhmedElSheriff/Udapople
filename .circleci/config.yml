@@ -405,7 +405,8 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}   
 
   cloudfront-update:
-    <<: *dockerdefault
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
       - install_nodejs
