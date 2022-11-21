@@ -445,7 +445,7 @@ jobs:
             export STACKS=($(aws cloudformation list-stacks \
                 --query "StackSummaries[*].StackName" \
                 --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
-                
+
             echo Stack names: "${STACKS[@]}"
 
             if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
@@ -473,6 +473,9 @@ workflows:
           context: $SLACK_ACCESS_TOKEN
       - deploy-infrastructure:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+          filters:
+            branches:
+              only: [master]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
       - run-migrations:
