@@ -4,16 +4,16 @@
 
 - URL02
     URL to my Frontend Deployment
-    http://udapeople-bac065e.s3-website-us-east-1.amazonaws.com/
+    http://udapeople-22fe372.s3-website-us-east-1.amazonaws.com/
 
 - URL03
     URL to my Cloudfront Deployment
-    http://d1s5qkrvh2nzfn.cloudfront.net/
+    http://dk9257i88d3x4.cloudfront.net/
 
 - URL04
     Backend API Status
-    http://52.90.79.149:3030/api/status
+    http://18.211.174.6:3030/api/status
 
 - URL05
     Prometheus Server
-    http://3.85.36.33:9090/
+    http://52.90.89.236:9090/
