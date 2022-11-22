@@ -41,7 +41,7 @@
 
 - name: "Unarchive"
   unarchive:
-    src: /home/artifact.tar.gz
+    src: artifact.tar.gz
     dest: /home/ubuntu/backend-artifact
 
 - name: "npm install"
